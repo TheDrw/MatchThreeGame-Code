@@ -12,7 +12,7 @@ namespace BubbleShooter.Core
         const int DROP_SCORE = 100;
         const int MATCH_SCORE = 10;
 
-        public Action<int> OnScoreUpdate = delegate { };
+        public event Action<int> OnScoreUpdate = delegate { };
 
         private void OnEnable()
         {

@@ -17,7 +17,7 @@ namespace MatchThree.Settings
         readonly string file = "settings";
         static readonly string soundVolumeStr = "soundVolume", musicVolumeStr = "musicVolume";
 
-        public Action<bool> OnBackgroundActiveChanged = delegate { };
+        public event Action<bool> OnBackgroundActiveChanged = delegate { };
 
         public void Load()
         {

@@ -9,11 +9,11 @@ namespace MatchThree.Effects
         [SerializeField] Material transitionMat;
         readonly int FADE_ID = Shader.PropertyToID("_Fade");
 
-        public Action OnFadeInStarted = delegate { };
-        public Action OnFadeInFinished = delegate { };
+        public event Action OnFadeInStarted = delegate { };
+        public event Action OnFadeInFinished = delegate { };
 
-        public Action OnFadeOutStarted = delegate { };
-        public Action OnFadeOutFinished = delegate { };
+        public event Action OnFadeOutStarted = delegate { };
+        public event Action OnFadeOutFinished = delegate { };
         
 
         void OnRenderImage(RenderTexture src, RenderTexture dest)

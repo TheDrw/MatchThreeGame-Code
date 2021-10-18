@@ -32,16 +32,8 @@ namespace BubbleShooter.Controller
             bubbleControls.Enable();
         }
 
-        protected override void Update()
-        {
-            base.Update();
-            /*
-            #region 4 TESTING 
-            TestingInputs();
-            #endregion
-            */
-        }
 
+#if UNITY_EDITOR
         private void TestingInputs()
         {
             if (Input.GetKeyDown(KeyCode.Z))
@@ -59,6 +51,7 @@ namespace BubbleShooter.Controller
                 board.UndoLastMove();
             }
         }
+#endif
 
         protected override void OnDisable()
         {

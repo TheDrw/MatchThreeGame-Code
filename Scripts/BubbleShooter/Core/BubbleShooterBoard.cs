@@ -91,17 +91,17 @@ namespace BubbleShooter.Core
         Vector2Int confirmedMove;
         AudioSource audioSource = default;
 
-        public Action OnReady = delegate { };
-        public Action OnMoveConfirmed = delegate { };
-        public Action<int> OnMatchFound = delegate { };
-        public Action OnMatchNotFound = delegate { };
-        public Action OnMatchDroppingsFell = delegate { };
-        public Action OnBubbleLandedAtBottomAndNoMatchFoundSoGameOver = delegate { };
-        public Action<GamePieceType> OnGamePieceTypeAdded = delegate { };
-        public Action<GamePieceType> OnGamePieceTypeRemoved = delegate { };
-        public Action OnBoardClear = delegate { };
-        public Action OnBoardSetupFinished = delegate { };
-        public Action OnBoardSetupStart = delegate { };
+        public event Action OnReady = delegate { };
+        public event Action OnMoveConfirmed = delegate { };
+        public event Action<int> OnMatchFound = delegate { };
+        public event Action OnMatchNotFound = delegate { };
+        public event Action OnMatchDroppingsFell = delegate { };
+        public event Action OnBubbleLandedAtBottomAndNoMatchFoundSoGameOver = delegate { };
+        public event Action<GamePieceType> OnGamePieceTypeAdded = delegate { };
+        public event Action<GamePieceType> OnGamePieceTypeRemoved = delegate { };
+        public event Action OnBoardClear = delegate { };
+        public event Action OnBoardSetupFinished = delegate { };
+        public event Action OnBoardSetupStart = delegate { };
 
         static readonly Vector2Int FAKE_NULL = new Vector2Int(-42069, -42069); // random value to pretend it is null
 

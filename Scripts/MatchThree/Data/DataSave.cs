@@ -22,9 +22,9 @@ namespace MatchThree.Data
 
     public static class DataSave
     {
-        public static Action OnDataLoadedFromServer = delegate { };
-        public static Action OnDataSavedToServer = delegate { };
-        public static Action OnDataDeletedFromServer = delegate { };
+        public static event Action OnDataLoadedFromServer = delegate { };
+        public static event Action OnDataSavedToServer = delegate { };
+        public static event Action OnDataDeletedFromServer = delegate { };
 
         public static void Load<T>(string fileName, T obj, ILoadedAsync loader = null) where T : class
         {

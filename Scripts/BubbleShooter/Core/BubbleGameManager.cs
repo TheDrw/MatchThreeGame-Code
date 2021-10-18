@@ -42,16 +42,15 @@ namespace BubbleShooter.Core
         AudioSource audioSource;
 
         //public static Action<FinishedGameResult> OnGamePlayerFinished = delegate { };
-        public static Action OnGameFinished = delegate { };
-        public static Action OnGameStart = delegate { };
-        public static Action OnGameCountdownStart = delegate { };
-        //public static Action<List<FinishedGameResult>> OnGameFinishedWithFinalGameResults = delegate { };
-        public static Action OnGamePaused = delegate { };
-        public static Action OnGameUnpaused = delegate { };
-        public static Action OnGameExit = delegate { };
-        public static Action OnGameEndingEarly = delegate { };
-        public static Action OnPlayerWon = delegate { };
-        public static Action OnPlayerLost = delegate { };
+        public static event Action OnGameFinished = delegate { };
+        public static event Action OnGameStart = delegate { };
+        public static event Action OnGameCountdownStart = delegate { };
+        public static event Action OnGamePaused = delegate { };
+        public static event Action OnGameUnpaused = delegate { };
+        public static event Action OnGameExit = delegate { };
+        public static event Action OnGameEndingEarly = delegate { };
+        public static event Action OnPlayerWon = delegate { };
+        public static event Action OnPlayerLost = delegate { };
 
         public GameState CurrentGameState { get; private set; } = GameState.NA;
 

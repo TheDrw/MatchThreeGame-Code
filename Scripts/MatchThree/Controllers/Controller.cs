@@ -22,12 +22,12 @@ namespace MatchThree.Controllers
         public Board Gameboard => gameboard;
         public Score Scoreboard => scoreboard;
 
-        public Action OnControllerMadeFirstMove = delegate { };
-        public Action<Controller> OnControllerFinishedGame = delegate { };
-        public Action OnControllerMadeGoodMove = delegate { };
-        public Action OnControllerMadeBadMove = delegate { };
-        public Action OnControllerMaxScoreReached = delegate { };
-        public Action OnControllerReadyToStart = delegate { };
+        public event Action OnControllerMadeFirstMove = delegate { };
+        public event Action<Controller> OnControllerFinishedGame = delegate { };
+        public event Action OnControllerMadeGoodMove = delegate { };
+        public event Action OnControllerMadeBadMove = delegate { };
+        public event Action OnControllerMaxScoreReached = delegate { };
+        public event Action OnControllerReadyToStart = delegate { };
 
         public bool IsReadyToStart { get; protected set; } = false;
         protected bool isActive = false;

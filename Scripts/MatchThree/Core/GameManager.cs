@@ -26,6 +26,7 @@ namespace MatchThree.Core
         [Scene] [SerializeField] string home;
 
         [Header("Other stuff")]
+        [SerializeField] GameObject eventSystem;
         [SerializeField] HighScores scores;
         [SerializeField] TransitionManager transitionManager;
 
@@ -39,15 +40,15 @@ namespace MatchThree.Core
         List<FinishedGameResult> finishedResults = new List<FinishedGameResult>();
         AudioSource audioSource;
 
-        public static Action<FinishedGameResult> OnGamePlayerFinished = delegate { };
-        public static Action OnGameFinished = delegate { };
-        public static Action OnGameStart = delegate { };
-        public static Action OnGameCountdownStart = delegate { };
-        public static Action<List<FinishedGameResult>> OnGameFinishedWithFinalGameResults = delegate { };
-        public static Action OnGamePaused = delegate { };
-        public static Action OnGameUnpaused = delegate { };
-        public static Action OnGameExit = delegate { };
-        public static Action OnGameEndingEarly = delegate { };
+        public static event Action<FinishedGameResult> OnGamePlayerFinished = delegate { };
+        public static event Action OnGameFinished = delegate { };
+        public static event Action OnGameStart = delegate { };
+        public static event Action OnGameCountdownStart = delegate { };
+        public static event Action<List<FinishedGameResult>> OnGameFinishedWithFinalGameResults = delegate { };
+        public static event Action OnGamePaused = delegate { };
+        public static event Action OnGameUnpaused = delegate { };
+        public static event Action OnGameExit = delegate { };
+        public static event Action OnGameEndingEarly = delegate { };
 
         public GameState CurrentGameState { get; private set; } = GameState.NA;
 
@@ -89,6 +90,8 @@ namespace MatchThree.Core
             yield return waitForControllersReady;
 
             yield return InitiateGame();
+
+            eventSystem.SetActive(true);
         }
 
         private void OnDestroy()
@@ -213,27 +216,38 @@ namespace MatchThree.Core
 
         public void PauseGame()
         {
-            if (CurrentGameState != GameState.Playing || 
+            if (CurrentGameState != GameState.Playing ||
                 CurrentGameState == GameState.Paused) return;
 
-            CurrentGameState = GameState.Paused;
-            OnGamePaused();
-            inputActions.Disable();
-            GC.Collect();
-            Time.timeScale = 0f;
-            OpenPauseMenu();
+            HandlePauseDetails();
+            StartCoroutine(OpenPauseMenuCoroutine());
         }
 
         public void UnpauseGame()
         {
             if (CurrentGameState != GameState.Paused) return;
 
+            StartCoroutine(ClosePauseMenuCoroutine());
+        }
+
+        private void HandlePauseDetails()
+        {
+            CurrentGameState = GameState.Paused;
+            OnGamePaused();
+            inputActions.Disable();
+            GC.Collect();
+            Time.timeScale = 0f;
+            eventSystem.SetActive(false);
+        }
+
+        private void HandleUnpauseDetails()
+        {
             CurrentGameState = GameState.Playing;
             GC.Collect();
             Time.timeScale = 1f;
             OnGameUnpaused();
             inputActions.Enable();
-            ClosePauseMenu();
+            eventSystem.SetActive(true);
         }
 
         public void ReturnToHome()
@@ -248,7 +262,7 @@ namespace MatchThree.Core
         {
             transitionManager.FadeInTransition(.15f, .5f);
             yield return new WaitForSecondsRealtime(.5f);
-            ClosePauseMenu();
+            ClosePauseMenuCoroutine();
 
             yield return new WaitForSecondsRealtime(.5f);
             Time.timeScale = 1f;
@@ -274,19 +288,20 @@ namespace MatchThree.Core
         }
 
 
-        void OpenPauseMenu()
+        IEnumerator OpenPauseMenuCoroutine()
         {
             if (!SceneManager.GetSceneByPath(pauseMenu).isLoaded)
             {
-                SceneManager.LoadSceneAsync(pauseMenu, LoadSceneMode.Additive);
+                yield return SceneManager.LoadSceneAsync(pauseMenu, LoadSceneMode.Additive);
             }
         }
 
-        void ClosePauseMenu()
+        IEnumerator ClosePauseMenuCoroutine()
         {
             if (SceneManager.GetSceneByPath(pauseMenu).isLoaded)
             {
-                SceneManager.UnloadSceneAsync(pauseMenu);
+                yield return SceneManager.UnloadSceneAsync(pauseMenu);
+                HandleUnpauseDetails();
             }
         }
     }

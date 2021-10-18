@@ -9,13 +9,13 @@ namespace MatchThree.Core
     {
         Board gameboard = null;
 
-        public Action<int, int> OnScoredCurrentAccumulatedPoints = delegate { };
-        public Action OnLoopCombo = delegate { };
-        public Action<int> OnScoredCurrentLoopComboMultiplier = delegate { };
-        public Action<int> OnScoredLoopBonusMultiplier = delegate { };
-        public Action<int, int> OnScoreTotaled = delegate { };
-        public Action OnScoreInit = delegate { };
-        public Action OnMaxScoreReached = delegate { };
+        public event Action<int, int> OnScoredCurrentAccumulatedPoints = delegate { };
+        public event Action OnLoopCombo = delegate { };
+        public event Action<int> OnScoredCurrentLoopComboMultiplier = delegate { };
+        public event Action<int> OnScoredLoopBonusMultiplier = delegate { };
+        public event Action<int, int> OnScoreTotaled = delegate { };
+        public event Action OnScoreInit = delegate { };
+        public event Action OnMaxScoreReached = delegate { };
 
         static readonly int MAX_POINTS = 999999;
 

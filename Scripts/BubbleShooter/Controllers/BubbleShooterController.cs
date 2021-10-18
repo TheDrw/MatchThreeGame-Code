@@ -22,13 +22,13 @@ namespace BubbleShooter.Controller
         [SerializeField] protected Shooter shooter;
         [SerializeField] BubbleControllerUI controllerUI;
 
-        public Action OnControllerMadeFirstMove = delegate { };
-        public Action<BubbleShooterController> OnControllerFinishedGame = delegate { };
-        public Action<BubbleShooterController> OnControllerDied = delegate { };
-        public Action OnControllerMadeGoodMove = delegate { };
-        public Action OnControllerMadeBadMove = delegate { };
-        public Action OnControllerMaxScoreReached = delegate { };
-        public Action OnControllerReadyToStart = delegate { };
+        public event Action OnControllerMadeFirstMove = delegate { };
+        public event Action<BubbleShooterController> OnControllerFinishedGame = delegate { };
+        public event Action<BubbleShooterController> OnControllerDied = delegate { };
+        public event Action OnControllerMadeGoodMove = delegate { };
+        public event Action OnControllerMadeBadMove = delegate { };
+        public event Action OnControllerMaxScoreReached = delegate { };
+        public event Action OnControllerReadyToStart = delegate { };
         
 
         public BubbleShooterBoard Board => board;
@@ -82,10 +82,6 @@ namespace BubbleShooter.Controller
             board.OnBoardSetupFinished -= ControllerReadyToStart;
             board.OnBubbleLandedAtBottomAndNoMatchFoundSoGameOver -= ControllerHitGameOverOnBoard;
             board.OnBoardClear -= ControllerClearedBoard;
-        }
-
-        protected virtual void OnDestroy()
-        {
         }
 
         public void Activate()

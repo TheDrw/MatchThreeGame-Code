@@ -18,8 +18,8 @@ namespace MatchThree.UI
         protected Stack<GameObject> menuStack = null;
         protected InputActions inputActions = null;
 
-        protected Action OnFrontMenuEnter = delegate { };
-        protected Action OnFrontMenuExit = delegate { };
+        protected event Action OnFrontMenuEnter = delegate { };
+        protected event Action OnFrontMenuExit = delegate { };
 
         protected virtual void Awake()
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace MatchThree.Data
 {
@@ -8,6 +9,9 @@ namespace MatchThree.Data
     public class AllScores : ScriptableObject
     {
         [SerializeField] HighScores[] allScores;
+
+        public HighScores[] ScoresArray => allScores;
+        public List<HighScores> ScoresList => allScores.ToList();
 
         public void Reset()
         {
