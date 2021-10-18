@@ -10,7 +10,7 @@ namespace MatchThree.Backend
     {
         [SerializeField] GameObject backendLoader;
 
-        public Action OnPlayerLoginSuccess =  delegate{};
+        public event Action OnPlayerLoginSuccess =  delegate{};
 
         void Start()
         {

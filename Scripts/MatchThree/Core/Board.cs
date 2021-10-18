@@ -42,13 +42,13 @@ namespace MatchThree.Core
         GamePiece hintedGamePiece = null;
 
 
-        public Action<int> OnMatchScored = delegate { };
-        public Action<int> OnMatchLoopCombo = delegate { };
-        public Action OnExhaustedAllMatchesInLoop = delegate { };
-        public Action OnGameBoardInitialized = delegate { };
-        public Action OnNoMorePossibleMatches = delegate { };
-        public Action OnMatchMadeBad = delegate { };
-        public Action OnMatchMadeGood = delegate { };
+        public event Action<int> OnMatchScored = delegate { };
+        public event Action<int> OnMatchLoopCombo = delegate { };
+        public event Action OnExhaustedAllMatchesInLoop = delegate { };
+        public event Action OnGameBoardInitialized = delegate { };
+        public event Action OnNoMorePossibleMatches = delegate { };
+        public event Action OnMatchMadeBad = delegate { };
+        public event Action OnMatchMadeGood = delegate { };
 
         private void Awake()
         {
